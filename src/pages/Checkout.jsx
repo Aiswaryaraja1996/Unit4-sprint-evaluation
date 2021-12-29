@@ -1,10 +1,10 @@
-import { useSelector } from "react-redux";
+import { useSelector ,shallowEqual} from "react-redux";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Navbar from "../components/Navbar";
 
 function Checkout() {
-  const { cart } = useSelector((state) => state.cart);
+  const { products,cart,isLoading,isError } = useSelector((state) => state);
 
   return (
     <div>

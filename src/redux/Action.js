@@ -27,7 +27,7 @@ export const getProdError = () => {
   };
 };
 
-export const addCart = ({ id, name, price, img }) => {
+export const addCart = ({ id, name, img,price }) => {
   return {
     type: actionConstants.ADD_CART,
     payload: { id: id, name: name, price: price },

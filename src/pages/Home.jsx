@@ -28,8 +28,8 @@ export default function Home() {
       });
   };
 
-  const handleAdd = (id,name,image)=>{
-      const addAction = actions.addCart({id,name,image});
+  const handleAdd = (id,name,image,price)=>{
+      const addAction = actions.addCart({id,name,image,price});
       dispatch(addAction);
   }
 
@@ -41,6 +41,8 @@ export default function Home() {
   useEffect(() => {
     getProducts();
   }, []);
+
+
   return (
     <div>
       <Navbar />
@@ -73,7 +75,7 @@ export default function Home() {
                     <div style={{ display: "flex" ,gap:"1rem"}}>
                       <button  onClick={()=>handleRemove(item.id)}>-</button>
                       <p style={{margin:0}}>Quantity</p>
-                      <button onClick={()=>handleAdd(item.id,item.name,item.image)}>+</button>
+                      <button onClick={()=>handleAdd(item.id,item.name,item.image,item.price)}>+</button>
                     </div>
                     <button >ADD TO CART</button>
                   </div>
