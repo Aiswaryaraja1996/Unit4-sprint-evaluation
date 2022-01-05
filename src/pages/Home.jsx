@@ -28,13 +28,13 @@ export default function Home() {
       });
   };
 
-  const handleAdd = (id,name,image,price)=>{
-      const addAction = actions.addCart({id,name,image,price});
+  const handleAdd = (id,name,image,price,qty)=>{
+      const addAction = actions.addCart({id,name,image,price,qty});
       dispatch(addAction);
   }
 
-  const handleRemove = (id)=>{
-      const removeAction = actions.removeCart({id});
+  const handleRemove = (id,qty)=>{
+      const removeAction = actions.removeCart({id,qty});
       dispatch(removeAction);
   }
 
@@ -50,7 +50,7 @@ export default function Home() {
         {isLoading && <h4>Loading...</h4>}
         {!isLoading &&
           products?.map((item) => (
-            <Box
+            <Box key={item.id}
               sx={{
                 display: "flex",
                 justifyContent: "center",
@@ -73,9 +73,9 @@ export default function Home() {
                     <p>{item.name}</p>
                     <p>Rs.{item.price}</p>
                     <div style={{ display: "flex" ,gap:"1rem"}}>
-                      <button  onClick={()=>handleRemove(item.id)}>-</button>
+                      <button  onClick={()=>handleRemove(item.id,1)}>-</button>
                       <p style={{margin:0}}>Quantity</p>
-                      <button onClick={()=>handleAdd(item.id,item.name,item.image,item.price)}>+</button>
+                      <button onClick={()=>handleAdd(item.id,item.name,item.image,item.price,1)}>+</button>
                     </div>
                     <button >ADD TO CART</button>
                   </div>

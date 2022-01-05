@@ -27,16 +27,16 @@ export const getProdError = () => {
   };
 };
 
-export const addCart = ({ id, name, img,price }) => {
+export const addCart = ({ id, name, image, price, qty }) => {
   return {
     type: actionConstants.ADD_CART,
-    payload: { id: id, name: name, price: price },
+    payload: { id: id, name: name, image: image, price: price, qty: qty },
   };
 };
 
-export const removeCart = (id) => {
+export const removeCart = ({id, qty}) => {
   return {
     type: actionConstants.REMOVE_CART,
-    payload: { id: id },
+    payload: { id: id, qty: qty },
   };
 };

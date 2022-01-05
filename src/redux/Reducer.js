@@ -16,12 +16,37 @@ export default function Reducer(state = initialState, action) {
     case actionConstants.GET_PRODUCT_ERROR:
       return { ...state, isError: true };
     case actionConstants.ADD_CART:
-      return { ...state, cart: [...state.cart, action.payload] };
+      if (state.cart.some((item) => item.id === action.payload.id)) {
+        return {
+          ...state,
+          cart: state.cart.map((i) =>
+            i.id === action.payload.id
+              ? { ...i, qty: i.qty + action.payload.qty }
+              : i
+          ),
+        };
+      } else {
+        return { ...state, cart: [...state.cart, action.payload] };
+      }
     case actionConstants.REMOVE_CART:
+      const existingCartItem = state.cart.find(
+        (item) => item.id === action.payload.id
+      );
+      //if there is only 1, upon clicking, we should remove the item from the array
+      if (existingCartItem.qty === 1) {
+        return {
+          ...state,
+          cart: state.cart.filter((item) => item.id !== action.payload.id),
+        };
+      }
+
       return {
         ...state,
-        cart: state.cart.filter((item) => item.id !== action?.payload.id),
+        cart: state.cart.map((item) =>
+          item.id === action.payload.id ? { ...item, qty: item.qty - 1 } : item
+        ),
       };
+
     default:
       return state;
   }

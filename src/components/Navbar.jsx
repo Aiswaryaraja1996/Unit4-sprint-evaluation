@@ -1,10 +1,17 @@
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { useSelector, shallowEqual } from "react-redux";
-import { useEffect, useState } from "react";
-import {Link} from "react-router-dom";
+import { useSelector } from "react-redux";
+// import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function Navbar() {
-  const length = useSelector((state) => state.cart.length);
+  const cart = useSelector((state) => state.cart);
+
+  if (cart.length > 0) {
+    var quantity = 0;
+    for (var i = 0; i < cart.length; i++) {
+      quantity = quantity + cart[i].qty;
+    }
+  }
 
   return (
     <div
@@ -25,8 +32,16 @@ function Navbar() {
           alignItems: "center",
         }}
       >
-        <Link to="/" exact style={{textDecoration: "none",color: "white"}}>HOME</Link>
-        <Link to="/orders" exact style={{textDecoration: "none",color: "white"}}>ORDERS</Link>
+        <Link to="/" exact style={{ textDecoration: "none", color: "white" }}>
+          HOME
+        </Link>
+        <Link
+          to="/orders"
+          exact
+          style={{ textDecoration: "none", color: "white" }}
+        >
+          ORDERS
+        </Link>
       </div>
       <div
         style={{
@@ -37,7 +52,7 @@ function Navbar() {
         }}
       >
         <ShoppingCartIcon style={{ color: "white" }} />
-        <h3>{length}</h3>
+        <h3>{quantity}</h3>
       </div>
     </div>
   );
